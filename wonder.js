@@ -85,7 +85,6 @@ function initializeWonder() {
             obj.render();
         }
         resetMatrix();
-        setDefaultCamera();
         for (let ui of uis) {
             ui.callback();
         }
