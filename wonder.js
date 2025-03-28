@@ -9,7 +9,6 @@ function loadScript(src, callback) {
 // Load p5.js first, then p5.sound, then initialize Wonder
 loadScript("https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js", () => {
     loadScript("https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js", () => {
-        console.log("p5.js and p5.sound loaded. Initializing Wonder...");
         initializeWonder();
     });
 });
