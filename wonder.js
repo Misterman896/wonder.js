@@ -48,6 +48,7 @@ class GameObject {
 class UI {
     constructor(callback) {
         this.callback = callback;
+        uis.push(this);
     }
 }
 // Built-in package for light system
