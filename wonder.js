@@ -9,6 +9,18 @@ function loadScript(src, callback) {
 // Load p5.js first, then p5.sound, then initialize Wonder
 loadScript("https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js", () => {
     loadScript("https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js", () => {
+        // Disable page scrolling
+        const style = document.createElement("style");
+        style.textContent = `
+            html, body {
+                overflow: hidden !important;
+                height: 100% !important;
+                margin: 0;
+                padding: 0;
+            }
+        `;
+        document.head.appendChild(style);
+
         initializeWonder();
     });
 });
@@ -16,6 +28,7 @@ loadScript("https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js", () => {
 let packages = [];
 let objects = [];
 let uis = [];
+
 // Package system
 class Package {
     constructor(callback) {
@@ -45,12 +58,14 @@ class GameObject {
         pop();
     }
 }
+
 class UI {
     constructor(callback) {
         this.callback = callback;
         uis.push(this);
     }
 }
+
 // Built-in package for light system
 new Package(() => {
     ambientLight(225);
@@ -70,7 +85,8 @@ function initializeWonder() {
         console.log("Get ready for the Wonder.");
     };
     
-    window.bg=0;
+    window.bg = 0;
+
     // Define draw function to execute packages and objects in order
     window.draw = function () {
         background(window.bg); // Clear screen each frame
@@ -84,15 +100,22 @@ function initializeWonder() {
         for (let obj of objects) {
             obj.render();
         }
+
         resetMatrix();
+
+        // Render all UI callbacks
         for (let ui of uis) {
             ui.callback();
         }
     };
 }
-window.windowResized = function(){
+
+// Resize canvas on window resize
+window.windowResized = function () {
     resizeCanvas(windowWidth, windowHeight);
 }
+
+// Utility to get if a key is pressed
 function getKey(k) {
-    return keyIsPressed&&key==k;
-  }
+    return keyIsPressed && key == k;
+}
