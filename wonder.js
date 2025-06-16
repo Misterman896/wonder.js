@@ -78,6 +78,14 @@ function initializeWonder() {
     window.start = window.start || function () {};  // Default empty function if not defined
 
     // Now that p5.js is loaded, define setup
+    function boxesIntersect(a, b) {
+  return (
+    a.max.x >= b.min.x && a.min.x <= b.max.x &&
+    a.max.y >= b.min.y && a.min.y <= b.max.y &&
+    a.max.z >= b.min.z && a.min.z <= b.max.z
+  );
+}
+
     window.setup = function () {
         createCanvas(windowWidth, windowHeight, WEBGL);
         noStroke();
